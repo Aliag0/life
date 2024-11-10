@@ -18,14 +18,23 @@
     <!-- Sidebar Menu -->
     <div class="sidebar" id="sidebar">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#" id="homeLink">Home</a></li>
+            <li><a href="#" id="boardLifeLink">Board Life</a></li>
+            <li><a href="#" id="otherLink">Other</a></li>
         </ul>
     </div>
 
-    <!-- Board Section -->
-    <div class="board"></div>
+    <!-- Dynamic Content Section -->
+    <div id="home" class="content-section">
+        <h1 class="title">&lt;/The End&gt;</The></h1>
+    </div>
+    <div id="board-life" class="content-section" style="display: none;">
+        <!-- Board Section -->
+        <div class="board"></div>
+    </div>
+    <div id="other" class="content-section" style="display: none;">
+    </div>
+
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -38,6 +47,35 @@
             sidebar.classList.toggle("open");
             burgerMenu.classList.toggle("open"); // Toggle the 'open' class on burger menu
         });
+
+        // Add event listeners to sidebar links
+        document.getElementById('homeLink').addEventListener('click', function() {
+            showSection('home');
+        });
+        document.getElementById('boardLifeLink').addEventListener('click', function() {
+            showSection('board-life');
+        });
+        document.getElementById('otherLink').addEventListener('click', function() {
+            showSection('other');
+        });
+
+        // Initially show the home section
+        showSection('home');
+
+        // Function to handle showing/hiding content sections
+        function showSection(sectionId) {
+                // Hide all sections
+                const sections = document.querySelectorAll('.content-section');
+                sections.forEach(function(section) {
+                    section.style.display = 'none';
+                });
+
+                // Show the selected section
+                const sectionToShow = document.getElementById(sectionId);
+                if (sectionToShow) {
+                    sectionToShow.style.display = 'block';
+                }
+            }
 
         function handleClick(event) {
             const caseElement = event.target;
