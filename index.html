@@ -19,8 +19,8 @@
     <div class="sidebar" id="sidebar">
         <ul>
             <li><a href="#" id="homeLink">Home</a></li>
-            <li><a href="#" id="boardLifeLink">Board Life</a></li>
-            <li><a href="#" id="otherLink">Other</a></li>
+            <li><a href="#" id="boardLifeLink">Board</a></li>
+            <li><a href="#" id="ratingLink">Rating</a></li>
         </ul>
     </div>
 
@@ -32,7 +32,11 @@
         <!-- Board Section -->
         <div class="board"></div>
     </div>
-    <div id="other" class="content-section" style="display: none;">
+    <div id="rating" class="content-section" style="display: none;">
+        <div class="rating">
+            <h1 class="rating-title">Daily rating</h1>
+            <div class="button-row" id="button-row"></div>
+        </div>
     </div>
 
 </body>
@@ -55,8 +59,8 @@
         document.getElementById('boardLifeLink').addEventListener('click', function() {
             showSection('board-life');
         });
-        document.getElementById('otherLink').addEventListener('click', function() {
-            showSection('other');
+        document.getElementById('ratingLink').addEventListener('click', function() {
+            showSection('rating');
         });
 
         // Initially show the home section
@@ -77,6 +81,16 @@
                 }
             }
 
+        function handleClickBlocked(event) {
+            const caseElement = event.target;
+            const clickedClass = "clicked";
+
+            if (!caseElement.classList.contains(clickedClass)) {
+                caseElement.classList.add(clickedClass);
+                localStorage.setItem(caseElement.id, "true");
+            }
+        }
+
         function handleClick(event) {
             const caseElement = event.target;
             const clickedClass = "clicked";
@@ -84,6 +98,9 @@
             if (!caseElement.classList.contains(clickedClass)) {
                 caseElement.classList.add(clickedClass);
                 localStorage.setItem(caseElement.id, "true");
+            } else {
+                caseElement.classList.remove(clickedClass);
+                localStorage.setItem(caseElement.id, "false");
             }
         }
 
@@ -102,11 +119,32 @@
                 if (localStorage.getItem(caseElement.id) === "true") {
                     caseElement.classList.add("clicked");
                 }
-                caseElement.addEventListener("click", handleClick);
+                caseElement.addEventListener("click", handleClickBlocked);
                 ligne.appendChild(caseElement);
             }
 
             ligneContainer.appendChild(ligne);
+        }
+
+        const buttonRow = document.getElementById("button-row");
+        for (let i = 0; i < 1; i++) {
+            const ligne = document.createElement("div");
+            ligne.className = "ligne";
+
+            for (let j = 0; j < 10; j++) {
+                const caseElement = document.createElement("div");
+                caseElement.className = "rating-button";
+                caseElement.id = `rating_button_${i}_${j}`;
+                if (localStorage.getItem(caseElement.id) === "true") {
+                    caseElement.classList.add("clicked");
+                } else {
+                    caseElement.classList.add("not-clicked");
+                }
+                caseElement.addEventListener("click", handleClick);
+                ligne.appendChild(caseElement);
+            }
+
+            buttonRow.appendChild(ligne);
         }
     });
 </script>

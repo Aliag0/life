@@ -122,16 +122,53 @@ body {
 }
 
 /* Home page */
-.home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
 .title {
     color: white;
     font-size: 50px;
     margin-bottom: 20px;
+}
+
+/* Rating page */
+.rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid white;
+    padding: 10px;
+    height: 150px;
+    width: 800px;
+    border-radius: 25px;
+}
+
+.rating-title {
+    color: white;
+}
+
+.button-row {
+    margin: 10px;
+    display: flex;
+    width: 80%;
+    display: flex;
+}
+
+.rating-button {
+    width: 15px;
+    height: 15px;
+    border-radius: 25%;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-left: 40px;
+}
+
+.rating-button:first-child {
+    margin-left: 55px;
+}
+
+.rating-button.clicked {
+    background-color: red;
+    border-color: red;
+}
+
+.rating-button:not(.clicked) {
+    background-color: white;
 }
