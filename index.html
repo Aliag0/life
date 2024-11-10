@@ -7,11 +7,37 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- Burger Menu -->
+    <div class="burger-menu" id="burger-menu">
+        <div class="burger-icon"></div>
+        <div class="burger-icon"></div>
+        <div class="burger-icon"></div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Board Section -->
     <div class="board"></div>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const board = document.querySelector(".board");
+        const burgerMenu = document.getElementById("burger-menu");
+        const sidebar = document.getElementById("sidebar");
+
+        // Toggle sidebar visibility and transform burger into a cross
+        burgerMenu.addEventListener("click", function() {
+            sidebar.classList.toggle("open");
+            burgerMenu.classList.toggle("open"); // Toggle the 'open' class on burger menu
+        });
 
         function handleClick(event) {
             const caseElement = event.target;
