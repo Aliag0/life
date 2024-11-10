@@ -4,87 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The end</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: rgba(13, 17, 23, 1);
-        }
-
-        .case {
-            width: 7px;
-            height: 7px;
-            border: 1px solid #ccc;
-            border-radius: 25%;
-            box-sizing: border-box;
-            cursor: pointer;
-            margin: 2px;
-        }
-
-        .case.clicked {
-            background-color: red;
-            border-color: red;
-        }
-        
-        .case:not(.clicked) {
-            background-color: white;
-        }
-
-        .ligne-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .ligne {
-            width: calc(52 * 11px);
-            display: flex;
-            flex-wrap: nowrap;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const container = document.body;
-
-            function handleClick(event) {
-                const caseElement = event.target;
-                const clickedClass = "clicked";
-
-                if (!caseElement.classList.contains(clickedClass)) {
-                    caseElement.classList.add(clickedClass);
-                    localStorage.setItem(caseElement.id, "true");
-                }
-            }
-
-            const ligneContainer = document.createElement("div");
-            ligneContainer.className = "ligne-container";
-            container.appendChild(ligneContainer);
-
-            for (let i = 0; i < 80; i++) {
-                const ligne = document.createElement("div");
-                ligne.className = "ligne";
-
-                for (let j = 0; j < 52; j++) {
-                    const caseElement = document.createElement("div");
-                    caseElement.className = "case";
-                    caseElement.id = `case_${i}_${j}`;
-                    if (localStorage.getItem(caseElement.id) === "true") {
-                        caseElement.classList.add("clicked");
-                    }
-                    caseElement.addEventListener("click", handleClick);
-                    ligne.appendChild(caseElement);
-                }
-
-                ligneContainer.appendChild(ligne);
-            }
-        });
-    </script>
+    <div class="board"></div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const board = document.querySelector(".board");
+
+        function handleClick(event) {
+            const caseElement = event.target;
+            const clickedClass = "clicked";
+
+            if (!caseElement.classList.contains(clickedClass)) {
+                caseElement.classList.add(clickedClass);
+                localStorage.setItem(caseElement.id, "true");
+            }
+        }
+
+        const ligneContainer = document.createElement("div");
+        ligneContainer.className = "ligne-container";
+        board.appendChild(ligneContainer);
+
+        for (let i = 0; i < 80; i++) {
+            const ligne = document.createElement("div");
+            ligne.className = "ligne";
+
+            for (let j = 0; j < 52; j++) {
+                const caseElement = document.createElement("div");
+                caseElement.className = "case";
+                caseElement.id = `case_${i}_${j}`;
+                if (localStorage.getItem(caseElement.id) === "true") {
+                    caseElement.classList.add("clicked");
+                }
+                caseElement.addEventListener("click", handleClick);
+                ligne.appendChild(caseElement);
+            }
+
+            ligneContainer.appendChild(ligne);
+        }
+    });
+</script>
 </html>
