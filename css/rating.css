@@ -1,0 +1,44 @@
+/* Rating page */
+.rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid white;
+    padding: 10px;
+    height: 150px;
+    width: 800px;
+    border-radius: 25px;
+}
+
+.rating-title {
+    color: white;
+}
+
+.button-row {
+    margin: 10px;
+    display: flex;
+    width: 80%;
+    display: flex;
+}
+
+.rating-button {
+    width: 15px;
+    height: 15px;
+    border-radius: 25%;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-left: 40px;
+}
+
+.rating-button:first-child {
+    margin-left: 55px;
+}
+
+.rating-button.clicked {
+    background-color: rgb(0, 255, 0);
+    border-color: rgb(0, 255, 0);
+}
+
+.rating-button:not(.clicked) {
+    background-color: white;
+}

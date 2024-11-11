@@ -1,0 +1,36 @@
+/* Board page */
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.case {
+    width: 7px;
+    height: 7px;
+    border-radius: 25%;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.case.clicked {
+    background-color: red;
+    border-color: red;
+}
+
+.case:not(.clicked) {
+    background-color: white;
+}
+
+.ligne-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ligne {
+    width: calc(52 * 11px);
+    display: flex;
+    flex-wrap: nowrap;
+}

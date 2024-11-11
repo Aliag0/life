@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The end</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/sablier.png">
+    <link rel="stylesheet" href="css/body.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="css/rating.css">
 </head>
 <body>
 
@@ -40,112 +45,7 @@
     </div>
 
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const board = document.querySelector(".board");
-        const burgerMenu = document.getElementById("burger-menu");
-        const sidebar = document.getElementById("sidebar");
-
-        // Toggle sidebar visibility and transform burger into a cross
-        burgerMenu.addEventListener("click", function() {
-            sidebar.classList.toggle("open");
-            burgerMenu.classList.toggle("open"); // Toggle the 'open' class on burger menu
-        });
-
-        // Add event listeners to sidebar links
-        document.getElementById('homeLink').addEventListener('click', function() {
-            showSection('home');
-        });
-        document.getElementById('boardLifeLink').addEventListener('click', function() {
-            showSection('board-life');
-        });
-        document.getElementById('ratingLink').addEventListener('click', function() {
-            showSection('rating');
-        });
-
-        // Initially show the home section
-        showSection('home');
-
-        // Function to handle showing/hiding content sections
-        function showSection(sectionId) {
-                // Hide all sections
-                const sections = document.querySelectorAll('.content-section');
-                sections.forEach(function(section) {
-                    section.style.display = 'none';
-                });
-
-                // Show the selected section
-                const sectionToShow = document.getElementById(sectionId);
-                if (sectionToShow) {
-                    sectionToShow.style.display = 'block';
-                }
-            }
-
-        function handleClickBlocked(event) {
-            const caseElement = event.target;
-            const clickedClass = "clicked";
-
-            if (!caseElement.classList.contains(clickedClass)) {
-                caseElement.classList.add(clickedClass);
-                localStorage.setItem(caseElement.id, "true");
-            }
-        }
-
-        function handleClick(event) {
-            const caseElement = event.target;
-            const clickedClass = "clicked";
-
-            if (!caseElement.classList.contains(clickedClass)) {
-                caseElement.classList.add(clickedClass);
-                localStorage.setItem(caseElement.id, "true");
-            } else {
-                caseElement.classList.remove(clickedClass);
-                localStorage.setItem(caseElement.id, "false");
-            }
-        }
-
-        const ligneContainer = document.createElement("div");
-        ligneContainer.className = "ligne-container";
-        board.appendChild(ligneContainer);
-
-        for (let i = 0; i < 80; i++) {
-            const ligne = document.createElement("div");
-            ligne.className = "ligne";
-
-            for (let j = 0; j < 52; j++) {
-                const caseElement = document.createElement("div");
-                caseElement.className = "case";
-                caseElement.id = `case_${i}_${j}`;
-                if (localStorage.getItem(caseElement.id) === "true") {
-                    caseElement.classList.add("clicked");
-                }
-                caseElement.addEventListener("click", handleClickBlocked);
-                ligne.appendChild(caseElement);
-            }
-
-            ligneContainer.appendChild(ligne);
-        }
-
-        const buttonRow = document.getElementById("button-row");
-        for (let i = 0; i < 1; i++) {
-            const ligne = document.createElement("div");
-            ligne.className = "ligne";
-
-            for (let j = 0; j < 10; j++) {
-                const caseElement = document.createElement("div");
-                caseElement.className = "rating-button";
-                caseElement.id = `rating_button_${i}_${j}`;
-                if (localStorage.getItem(caseElement.id) === "true") {
-                    caseElement.classList.add("clicked");
-                } else {
-                    caseElement.classList.add("not-clicked");
-                }
-                caseElement.addEventListener("click", handleClick);
-                ligne.appendChild(caseElement);
-            }
-
-            buttonRow.appendChild(ligne);
-        }
-    });
-</script>
+<script src="scripts/navigation.js"></script>
+<script src="scripts/board.js"></script>
+<script src="scripts/rating.js"></script>
 </html>
