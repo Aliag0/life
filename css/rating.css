@@ -1,5 +1,12 @@
 /* Rating page */
-.rating {
+.all-ratings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid red;
+}
+
+.rating-cell {
     display: flex;
     flex-direction: column;
     align-items: center;

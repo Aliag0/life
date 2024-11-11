@@ -1,37 +1,43 @@
 // rating.js
-document.addEventListener("DOMContentLoaded", function() {
-    const buttonRow = document.getElementById("button-row");
 
-    function handleClick(event) {
-        const caseElement = event.target;
+document.addEventListener("DOMContentLoaded", function() {
+    initializeButtonRow("button-row-daily");
+    initializeButtonRow("button-row-weekly");
+});
+
+function initializeButtonRow(rowId) {
+    const buttonRow = document.getElementById(rowId);
+
+    function toggleButtonState(event) {
+        const button = event.target;
         const clickedClass = "clicked";
 
-        if (!caseElement.classList.contains(clickedClass)) {
-            caseElement.classList.add(clickedClass);
-            localStorage.setItem(caseElement.id, "true");
+        // Toggle the 'clicked' class and update localStorage based on new state
+        if (button.classList.toggle(clickedClass)) {
+            localStorage.setItem(button.id, "true");
         } else {
-            caseElement.classList.remove(clickedClass);
-            localStorage.setItem(caseElement.id, "false");
+            localStorage.setItem(button.id, "false");
         }
     }
 
-    for (let i = 0; i < 1; i++) {
-        const ligne = document.createElement("div");
-        ligne.className = "ligne";
+    // Create a row of 10 buttons
+    const ligne = document.createElement("div");
+    ligne.className = "ligne";
 
-        for (let j = 0; j < 10; j++) {
-            const caseElement = document.createElement("div");
-            caseElement.className = "rating-button";
-            caseElement.id = `rating_button_${i}_${j}`;
-            if (localStorage.getItem(caseElement.id) === "true") {
-                caseElement.classList.add("clicked");
-            } else {
-                caseElement.classList.add("not-clicked");
-            }
-            caseElement.addEventListener("click", handleClick);
-            ligne.appendChild(caseElement);
+    for (let i = 0; i < 10; i++) {
+        const button = document.createElement("div");
+        button.className = "rating-button";
+        button.id = `rating_button_${i}`;
+
+        // Load initial state from localStorage
+        if (localStorage.getItem(button.id) === "true") {
+            button.classList.add("clicked");
         }
 
-        buttonRow.appendChild(ligne);
+        button.addEventListener("click", toggleButtonState);
+        ligne.appendChild(button);
     }
-});
+
+    // Append the container to the row
+    buttonRow.appendChild(ligne);
+};
