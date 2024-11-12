@@ -3,67 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The end</title>
+    <title>The End</title>
     <link rel="icon" type="image/png" href="assets/sablier.png">
     <link rel="stylesheet" href="css/body.css">
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/board.css">
     <link rel="stylesheet" href="css/rating.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
 </head>
 <body>
 
-    <!-- Burger Menu -->
-    <div class="burger-menu" id="burger-menu">
-        <div class="burger-icon"></div>
-        <div class="burger-icon"></div>
-        <div class="burger-icon"></div>
-    </div>
+    <div id="app">
+         <!-- Burger Menu -->
+        <div
+            class="burger-menu" 
+            :class="{ open: sidebarOpen }" 
+            @click="toggleSidebar">
+            <div class="burger-icon"></div>
+            <div class="burger-icon"></div>
+            <div class="burger-icon"></div>
+        </div>
 
-    <!-- Sidebar Menu -->
-    <div class="sidebar" id="sidebar">
-        <ul>
-            <li><a href="#" id="homeLink">Home</a></li>
-            <li><a href="#" id="boardLifeLink">Board</a></li>
-            <li><a href="#" id="ratingLink">Rating</a></li>
-        </ul>
-    </div>
+        <!-- Sidebar Menu -->
+        <div
+            class="sidebar" 
+            :class="{ open: sidebarOpen }">
+            <ul>
+            <li><a href="#" @click="showSection('home')">Home</a></li>
+            <li><a href="#" @click="showSection('board-life')">Board</a></li>
+            <li><a href="#" @click="showSection('rating')">Rating</a></li>
+            </ul>
+        </div>
 
-    <!-- Dynamic Content Section -->
-    <div id="home" class="content-section">
+        <!-- Sections -->
+        <div v-if="currentSection === 'home'" class="content-section">
+            <h1 class="title">&lt;/The End&gt;</h1>
+        </div>
 
-        <h1 class="title">&lt;/The End&gt;</The></h1>
+        <div v-if="currentSection === 'board-life'" class="content-section">
+            <!-- Board Section -->
+            <board-grid></board-grid>
+        </div>
 
-    </div>
-    <div id="board-life" class="content-section" style="display: none;">
+        <div v-if="currentSection === 'rating'" class="content-section">
+            <div class="all-ratings">
+                <div class="rating-cell" id="rating-cells-weekly">
+                    <h1 class="rating-title">Weekly rating</h1>
+                    <button-row row-id="button-row-weekly" row-name="weekly"></button-row>
+                </div>
 
-        <!-- Board Section -->
-        <div class="board"></div>
+                <div class="rating-cell" id="rating-cells-daily">
+                    <h1 class="rating-title">Daily rating</h1>
+                    <button-row row-id="button-row-daily" row-name="daily"></button-row>
+                </div>
 
-    </div>
-    <div id="rating" class="content-section" style="display: none;">
-        <div class="all-ratings">
-
-            <div class="rating-cell" id="rating-cells-weekly">
-                <h1 class="rating-title">Weekly rating</h1>
-                <div class="button-row" id="button-row-weekly"></div>
+                <div class="comment">
+                    <textarea class="comment-text" id="comment-text" placeholder="Comment"></textarea>
+                </div>
             </div>
-
-            <div class="rating-cell" id="rating-cells-daily">
-                <h1 class="rating-title">Daily rating</h1>
-                <div class="button-row" id="button-row-daily"></div>
-            </div>
-
-            <div class="comment">
-                <textarea class="comment-text" id="comment-text" placeholder="Comment"></textarea>
-            </div>
-
         </div>
     </div>
 
+    <!-- Script Vue principal -->
+    <script src="scripts/main.js"></script>
 </body>
-<script src="scripts/navigation.js"></script>
-<script src="scripts/board.js"></script>
-<script src="scripts/rating.js"></script>
-<script src="scripts/comment.js"></script>
 </html>
