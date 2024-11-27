@@ -77,18 +77,38 @@ app.component('button-row', {
         };
     },
     methods: {
-        toggleButton(index) {
-        // Activer tous les boutons jusqu'à l'index cliqué
-        for (let i = 0; i <= index; i++) {
-            this.buttons[i].clicked = true;
-            localStorage.setItem(`${this.rowName}_rating_button_${i}`, true);
-        }
+        canClick() {
+            const lastClickedDate = localStorage.getItem(`${this.rowName}_lastClicked`);
+            if (!lastClickedDate) return true; // Aucun clic enregistré
 
-        // Désactiver tous les boutons après l'index cliqué
-        for (let i = index + 1; i < this.buttons.length; i++) {
-            this.buttons[i].clicked = false;
-            localStorage.setItem(`${this.rowName}_rating_button_${i}`, false);
-        }
+            const lastClickedDay = new Date(lastClickedDate).toISOString().split('T')[0];
+            const today = new Date().toISOString().split('T')[0];
+
+            if (this.rowName == 'daily')
+                return lastClickedDay !== today; // Autorise un seul clic par jour
+            else if (this.rowName == 'weekly')
+                return lastClickedDay !== today || new Date().getDay() === 5; // Autorise un clic par jour, mais seulement le vendredi
+        },
+        toggleButton(index) {
+            if (!this.canClick()) {
+                alert("Vous pouvez plus evaluer.");
+                return;
+            }
+
+            // Activer tous les boutons jusqu'à l'index cliqué
+            for (let i = 0; i <= index; i++) {
+                this.buttons[i].clicked = true;
+                localStorage.setItem(`${this.rowName}_rating_button_${i}`, true);
+            }
+
+            // Désactiver tous les boutons après l'index cliqué
+            for (let i = index + 1; i < this.buttons.length; i++) {
+                this.buttons[i].clicked = false;
+                localStorage.setItem(`${this.rowName}_rating_button_${i}`, false);
+            }
+
+            // Enregistre uniquement la date (sans l'heure)
+            localStorage.setItem(`${this.rowName}_lastClicked`, new Date().toISOString().split('T')[0]);
         }
     },
     mounted() {
